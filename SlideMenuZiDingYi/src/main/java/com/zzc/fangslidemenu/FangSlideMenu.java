@@ -53,7 +53,7 @@ public class FangSlideMenu extends RelativeLayout{
         frameLayout2.setBackgroundColor(Color.WHITE);
         frameLayout3.setBackgroundColor(Color.WHITE);
         maskframe.setBackgroundColor(0x88000000);
-        maskframe.setAlpha(0);
+//        maskframe.setAlpha(0);
 //        frameLayout1= (FrameLayout) LayoutInflater.from(context).inflate(R.layout.c,null);
         frameLayout1.setId(f1);
         frameLayout2.setId(f2);
@@ -153,7 +153,7 @@ public class FangSlideMenu extends RelativeLayout{
     @Override
     public void scrollTo(int x, int y) {
         super.scrollTo(x, y);
-        maskframe.setAlpha(Math.abs((float)x/frameLayout3.getMeasuredWidth()));
+//        maskframe.setAlpha(Math.abs((float)x/frameLayout3.getMeasuredWidth()));
     }
 
     private void move(){
