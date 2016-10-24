@@ -1,4 +1,4 @@
-# SlideMenuZiDingYi
+﻿# SlideMenuZiDingYi
 ##请使用正确的食用方式:<br/>  
 ```Java
   rootGradle: 
@@ -10,7 +10,7 @@
 ```
 ```Java
     dependencies { 
-    compile 'com.github.cai1449074828:SlideMenuZiDingYi:1.3'<br/>  
+    compile 'com.github.cai1449074828:SlideMenuZiDingYi:2.0'<br/>  
 }
 ```
 新建3个fragment<br/>  
