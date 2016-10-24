@@ -43,6 +43,8 @@ public class FangSlideMenu extends RelativeLayout{
     public void setLayoutWidth(double l_width,double r_width){
         this.l_width=l_width;
         this.r_width=r_width;
+        frameLayout2.measure(MeasureSpec.makeMeasureSpec((int) (realwidth*l_width),MeasureSpec.EXACTLY), mheightMeasureSpec);
+        frameLayout3.measure(MeasureSpec.makeMeasureSpec((int) (realwidth*r_width),MeasureSpec.EXACTLY), mheightMeasureSpec);
     }
     public void initView(Context context){
         frameLayout1=new FrameLayout(context);
@@ -65,13 +67,15 @@ public class FangSlideMenu extends RelativeLayout{
         scroller=new Scroller(context,new DecelerateInterpolator());
     }
     private int realwidth;
+    private int mheightMeasureSpec;
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         frameLayout1.measure(widthMeasureSpec, heightMeasureSpec);
         realwidth=MeasureSpec.getSize(widthMeasureSpec);
-        frameLayout2.measure(MeasureSpec.makeMeasureSpec((int) (realwidth*l_width),MeasureSpec.EXACTLY), heightMeasureSpec);
-        frameLayout3.measure(MeasureSpec.makeMeasureSpec((int) (realwidth*r_width),MeasureSpec.EXACTLY), heightMeasureSpec);
+        mheightMeasureSpec=heightMeasureSpec;
+        frameLayout2.measure(MeasureSpec.makeMeasureSpec((int) (realwidth*l_width),MeasureSpec.EXACTLY), mheightMeasureSpec);
+        frameLayout3.measure(MeasureSpec.makeMeasureSpec((int) (realwidth*r_width),MeasureSpec.EXACTLY), mheightMeasureSpec);
         maskframe.measure(widthMeasureSpec, heightMeasureSpec);
     }
 

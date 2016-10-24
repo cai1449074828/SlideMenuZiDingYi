@@ -5,15 +5,15 @@ import android.graphics.Color;
 import android.graphics.Point;
 import android.os.SystemClock;
 import android.view.MotionEvent;
+import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.Scroller;
-
 /**
  * Created by Administrator on 2015/10/23.
  */
-public class FangSlideMenu2 extends RelativeLayout{
+public class FangSlideMenu2 extends RelativeLayout {
     public FrameLayout frameLayout1;
     public FrameLayout frameLayout2;
     public FrameLayout frameLayout3;
@@ -29,15 +29,22 @@ public class FangSlideMenu2 extends RelativeLayout{
     public static float frameLayout2_xiamian_baifenbi=frameLayout2_length_baifenbi*5/7;//左边被中间所盖住的长度
     public static float frameLayout3_xiamian_baifenbi= frameLayout3_length_baifenbi*2*(0.5f-1f/7);//右边边被中间所盖住的长度
     //为了使移动frameLayout2与frameLayout3的速度一致bili=3.5
-    public static final float bili=frameLayout2_length_baifenbi/(frameLayout2_length_baifenbi-frameLayout2_xiamian_baifenbi);
+    public static float bili= (float) 3.5;
     public FangSlideMenu2(Context context) {
         super(context);
         this.context=context;
         initView(context);
     }
     public void setLayoutWidth(double l_width,double r_width){
-        this.frameLayout2_length_baifenbi= (float) l_width;
-        this.frameLayout2_length_baifenbi= (float) r_width;
+        frameLayout2_length_baifenbi= (float) l_width;
+        frameLayout3_length_baifenbi= (float) r_width;
+        frameLayout2_xiamian_baifenbi=frameLayout2_length_baifenbi*5/7;
+        frameLayout3_xiamian_baifenbi= frameLayout3_length_baifenbi*2*(0.5f-1f/7);
+        if (l_width!=0)bili=frameLayout2_length_baifenbi/(frameLayout2_length_baifenbi-frameLayout2_xiamian_baifenbi);
+        else bili=frameLayout3_length_baifenbi/(frameLayout3_length_baifenbi-frameLayout3_xiamian_baifenbi);
+        frameLayout2.measure(MeasureSpec.makeMeasureSpec((int) (realwidth*frameLayout2_length_baifenbi),MeasureSpec.EXACTLY), mheightMeasureSpec);
+        frameLayout3.measure(MeasureSpec.makeMeasureSpec((int) (realwidth*frameLayout3_length_baifenbi),MeasureSpec.EXACTLY), mheightMeasureSpec);
+
     }
     public void initView(Context context){
         frameLayout1=new FrameLayout(context);
@@ -57,16 +64,31 @@ public class FangSlideMenu2 extends RelativeLayout{
         addView(frameLayout3);
         addView(frameLayout1);
         addView(maskframe);
+        frameLayout1.setOnTouchListener(onTouchListener_lanjie);
         scroller=new Scroller(context,new DecelerateInterpolator());
     }
+    private OnTouchListener onTouchListener_lanjie=new OnTouchListener() {
+        @Override
+        public boolean onTouch(View v, MotionEvent event) {
+            return true;
+        }
+    };
+    private OnTouchListener onTouchListener_bulanjie=new OnTouchListener() {
+        @Override
+        public boolean onTouch(View v, MotionEvent event) {
+            return false;
+        }
+    };
     private int realwidth;
+    private int mheightMeasureSpec;
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         frameLayout1.measure(widthMeasureSpec, heightMeasureSpec);
         realwidth=MeasureSpec.getSize(widthMeasureSpec);
-        frameLayout2.measure(MeasureSpec.makeMeasureSpec((int) (realwidth*frameLayout2_length_baifenbi),MeasureSpec.EXACTLY), heightMeasureSpec);
-        frameLayout3.measure(MeasureSpec.makeMeasureSpec((int) (realwidth*frameLayout3_length_baifenbi),MeasureSpec.EXACTLY), heightMeasureSpec);
+        mheightMeasureSpec=heightMeasureSpec;
+        frameLayout2.measure(MeasureSpec.makeMeasureSpec((int) (realwidth*frameLayout2_length_baifenbi),MeasureSpec.EXACTLY), mheightMeasureSpec);
+        frameLayout3.measure(MeasureSpec.makeMeasureSpec((int) (realwidth*frameLayout3_length_baifenbi),MeasureSpec.EXACTLY), mheightMeasureSpec);
         left_bianjie=-(frameLayout2.getMeasuredWidth()-realwidth*frameLayout2_xiamian_baifenbi);//左边界
         right_bianjie=frameLayout3.getMeasuredWidth()-realwidth*frameLayout3_xiamian_baifenbi;
         maskframe.measure(widthMeasureSpec, heightMeasureSpec);
@@ -101,7 +123,7 @@ public class FangSlideMenu2 extends RelativeLayout{
                         mov = (int) right_bianjie;
                     else if (mov < left_bianjie)
                         mov = (int) left_bianjie;
-                        scroller.startScroll(0, 0, mov, 0, 0);
+                    scroller.startScroll(0, 0, mov, 0, 0);
                     invalidate();
                 }
                 MotionEvent motionEventMove = MotionEvent.obtain(
@@ -141,7 +163,7 @@ public class FangSlideMenu2 extends RelativeLayout{
                     super.dispatchTouchEvent(motionEventUp);
                 }
                 CANCEL=false;
-//                mov=scroller.getCurrX();
+                mov=scroller.getCurrX();
                 if((mov>=left_bianjie*0.5&&mov<0)||(mov<=right_bianjie*0.5&&mov>0)){scroller.startScroll(mov, 0, -mov, 0, 500);}
                 else if(mov<left_bianjie*0.5&&mov>left_bianjie){scroller.startScroll(mov, 0, (int) (left_bianjie - mov), 0, 500);}
                 else if(mov>right_bianjie*0.5&&mov<right_bianjie){scroller.startScroll(mov, 0, (int) (right_bianjie - mov), 0, 500);}
