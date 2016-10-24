@@ -54,7 +54,7 @@ public class FangSlideMenu extends RelativeLayout{
         frameLayout3.setBackgroundColor(Color.WHITE);
         maskframe.setBackgroundColor(0x88000000);
         maskframe.setAlpha(0);
-        frameLayout1= (FrameLayout) LayoutInflater.from(context).inflate(R.layout.c,null);
+//        frameLayout1= (FrameLayout) LayoutInflater.from(context).inflate(R.layout.c,null);
         frameLayout1.setId(f1);
         frameLayout2.setId(f2);
         frameLayout3.setId(f3);
