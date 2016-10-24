@@ -24,10 +24,10 @@ public class FangSlideMenu2 extends RelativeLayout{
     public static final int f1=0xaabbcc;
     public static final int f2=0xaaccbb;
     public static final int f3=0xccbbaa;
-    public static final float frameLayout2_length_baifenbi=0.7f;//左边的长度
-    public static final float frameLayout3_length_baifenbi=0.5f;
-    public static final float frameLayout2_xiamian_baifenbi=frameLayout2_length_baifenbi*5/7;//左边被中间所盖住的长度
-    public static final float frameLayout3_xiamian_baifenbi= frameLayout3_length_baifenbi*2*(0.5f-1f/7);//右边边被中间所盖住的长度
+    public static float frameLayout2_length_baifenbi=0.7f;//左边的长度
+    public static float frameLayout3_length_baifenbi=0.5f;
+    public static float frameLayout2_xiamian_baifenbi=frameLayout2_length_baifenbi*5/7;//左边被中间所盖住的长度
+    public static float frameLayout3_xiamian_baifenbi= frameLayout3_length_baifenbi*2*(0.5f-1f/7);//右边边被中间所盖住的长度
     //为了使移动frameLayout2与frameLayout3的速度一致bili=3.5
     public static final float bili=frameLayout2_length_baifenbi/(frameLayout2_length_baifenbi-frameLayout2_xiamian_baifenbi);
     public FangSlideMenu2(Context context) {
@@ -35,11 +35,9 @@ public class FangSlideMenu2 extends RelativeLayout{
         this.context=context;
         initView(context);
     }
-    private double r_width=0.5;
-    private double l_width=0.5;
     public void setLayoutWidth(double l_width,double r_width){
-        this.l_width=l_width;
-        this.r_width=r_width;
+        this.frameLayout2_length_baifenbi= (float) l_width;
+        this.frameLayout2_length_baifenbi= (float) r_width;
     }
     public void initView(Context context){
         frameLayout1=new FrameLayout(context);
