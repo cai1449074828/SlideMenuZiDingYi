@@ -25,13 +25,14 @@
         FangSlideMenu fangSlideMenu=new FangSlideMenu(this);
         setContentView(fangSlideMenu);
         //设置左右页面宽度百分比,当左右页面不想用时可设为0
-        fangSlideMenu.setLayoutWidth(0.5,0.5);
+        fangSlideMenu.setLayoutWidth(0.5,0);
         right=new YongHuJieMianRight();
         left=new YongHuJieMianLeft();
         center=new YongHuJieMianCenter(this);
         //添加3个fragment
-        getSupportFragmentManager().beginTransaction().add(fangSlideMenu.frameLayout3.getId(),right).commit();
+        //getSupportFragmentManager().beginTransaction().add(fangSlideMenu.frameLayout3.getId(),right).commit();
         getSupportFragmentManager().beginTransaction().add(fangSlideMenu.frameLayout2.getId(),left).commit();
         getSupportFragmentManager().beginTransaction().add(fangSlideMenu.frameLayout1.getId(),center).commit();
     }
   ``` 
+![](https://github.com/cai1449074828/ImageCache/)  
