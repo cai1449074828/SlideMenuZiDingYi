@@ -10,7 +10,7 @@
 ```
 ```Java
     dependencies { 
-    compile 'com.github.cai1449074828:SlideMenuZiDingYi:1.0'<br/>  
+    compile 'com.github.cai1449074828:SlideMenuZiDingYi:1.3'<br/>  
 }
 ```
 新建3个fragment<br/>  
